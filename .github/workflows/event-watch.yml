@@ -1,0 +1,39 @@
+name: event-watch
+
+on:
+  schedule:
+    # UTC times = 08:00, 13:00 and 19:00 in Bangkok
+    - cron: "0 1,6,12 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: event-watch
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check venues and send alerts
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python watch_events.py
+
+      - name: Save what was already sent
+        run: |
+          git config user.name "event-watch-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state.json docs
+          git diff --cached --quiet || git commit -m "update events page"
+          git push
