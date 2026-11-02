@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#14213d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="งานสตาฟ">
+<meta name="robots" content="noindex">
+<title>งานอีเวนต์ใกล้ฉัน</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap">
+<style>
+/* One column of event cards, newest-relevant first; filter chips stick to the top while scrolling. */
+:root {
+  --bg: #f2f4f8; --card: #ffffff; --ink: #14213d; --muted: #5e6a80; --line: #dfe4ec;
+  --accent: #2346c8; --accent-bg: #e4eafc;
+  --hot: #b4540a; --hot-bg: #fdeedd;
+  --new: #13795b; --new-bg: #dcf3ea;
+  --warn: #c0283a; --warn-bg: #fbe3e6;
+  --display: "Chakra Petch", "IBM Plex Sans Thai", system-ui, sans-serif;
+  --body: "IBM Plex Sans Thai", "Noto Sans Thai", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f141d; --card: #18202c; --ink: #e8ecf3; --muted: #9aa6ba; --line: #2a3443;
+    --accent: #8aa4ff; --accent-bg: #1f2b4f; --hot: #f3a25a; --hot-bg: #3b2714;
+    --new: #5fd0a8; --new-bg: #153328; --warn: #f37b8a; --warn-bg: #3f1c22;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.55 var(--body);
+  padding: env(safe-area-inset-top, 0) max(16px, env(safe-area-inset-right, 0px)) 40px max(16px, env(safe-area-inset-left, 0px));
+}
+.wrap { max-width: 640px; margin: 0 auto; }
+header { padding: 22px 0 10px; }
+h1 { font-family: var(--display); font-size: 26px; line-height: 1.15; margin: 0; }
+.sub { color: var(--muted); font-size: 13px; margin: 4px 0 0; }
+.bar {
+  position: sticky; top: 0; z-index: 5; background: var(--bg);
+  padding: 10px 0; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;
+}
+.bar::-webkit-scrollbar { display: none; }
+.chip {
+  flex: none; border: 1px solid var(--line); background: var(--card); color: var(--ink);
+  border-radius: 999px; padding: 7px 14px; font: inherit; font-size: 14px; cursor: pointer;
+}
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.chip .n { opacity: .65; margin-left: 4px; font-size: 12px; }
+.summary { display: flex; gap: 8px; flex-wrap: wrap; margin: 4px 0 14px; font-size: 13px; color: var(--muted); }
+.summary b { color: var(--ink); }
+.group { font-family: var(--display); font-size: 15px; color: var(--muted); margin: 20px 0 8px; letter-spacing: .02em; }
+.list { display: flex; flex-direction: column; gap: 10px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+.card.hot { border-color: var(--hot); }
+.top { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+.title { font-weight: 600; font-size: 16px; line-height: 1.4; overflow-wrap: anywhere; min-width: 0; }
+.days { flex: none; text-align: center; min-width: 52px; }
+.days b { display: block; font-family: var(--display); font-size: 22px; line-height: 1; }
+.days span { font-size: 11px; color: var(--muted); }
+.meta { color: var(--muted); font-size: 13.5px; margin-top: 4px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.tag { font-size: 12px; font-weight: 600; border-radius: 6px; padding: 1px 8px; }
+.t-zone { background: var(--accent-bg); color: var(--accent); }
+.t-hot { background: var(--hot-bg); color: var(--hot); }
+.t-new { background: var(--new-bg); color: var(--new); }
+.t-warn { background: var(--warn-bg); color: var(--warn); }
+.acts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+.btn {
+  display: block; text-align: center; text-decoration: none; border-radius: 10px; padding: 10px 8px;
+  font-weight: 600; font-size: 14px; border: 1px solid var(--line); color: var(--ink); background: var(--bg);
+}
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+@media (prefers-color-scheme: dark) { .btn.primary { color: #0f141d; } }
+.empty { text-align: center; color: var(--muted); padding: 40px 0; }
+.tip { margin-top: 28px; padding: 14px 16px; border-radius: 12px; background: var(--card); border: 1px dashed var(--line); font-size: 13.5px; color: var(--muted); }
+.tip b { color: var(--ink); }
+footer { margin-top: 18px; font-size: 12px; color: var(--muted); text-align: center; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>งานอีเวนต์ใกล้ฉัน</h1>
+    <p class="sub">ไบเทค · ศูนย์ประชุมฯ · ราชมังคลา/หัวหมาก · บางกะปิ — ใช้หาว่าช่วงไหนเอเจนซี่จะรับสตาฟ</p>
+  </header>
+  <nav class="bar" id="bar" aria-label="กรองตามโซน"></nav>
+  <div class="summary" id="summary"></div>
+  <main id="list"></main>
+  <div class="tip">
+    <b>ใช้ยังไง:</b> งานที่ขึ้นป้าย <b>ช่วงหาสตาฟ</b> คืองานที่เหลือไม่เกิน __REMIND__ วัน เอเจนซี่มักประกาศรับคนช่วงนี้
+    กด <b>หาสตาฟใน FB</b> เพื่อค้นโพสต์รับสมัครของงานนั้น<br><br>
+    <b>เพิ่มไว้หน้าจอหลัก:</b> iPhone กดปุ่มแชร์ → "เพิ่มไปยังหน้าจอโฮม" · Android กด ⋮ → "เพิ่มลงในหน้าจอหลัก"
+  </div>
+  <footer>อัปเดตล่าสุด __UPDATED__ · แหล่งข้อมูล: __SOURCES__</footer>
+</div>
+<script>
+const EVENTS = __DATA__;
+const AVOID = __AVOID__;
+const REMIND = __REMIND__;
+const TH_M = ["","ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+const TH_D = ["อา.","จ.","อ.","พ.","พฤ.","ศ.","ส."];
+
+function parse(s) { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); }
+const today = new Date(); today.setHours(0, 0, 0, 0);
+const dayDiff = (d) => Math.round((d - today) / 86400000);
+function range(s, e) {
+  const a = parse(s), b = parse(e);
+  if (s === e) return TH_D[a.getDay()] + " " + a.getDate() + " " + TH_M[a.getMonth() + 1];
+  if (a.getMonth() === b.getMonth()) return a.getDate() + "–" + b.getDate() + " " + TH_M[a.getMonth() + 1];
+  return a.getDate() + " " + TH_M[a.getMonth() + 1] + " – " + b.getDate() + " " + TH_M[b.getMonth() + 1];
+}
+function esc(s) { const d = document.createElement("div"); d.textContent = s == null ? "" : s; return d.innerHTML; }
+
+const live = EVENTS.filter((e) => dayDiff(parse(e.end)) >= 0).sort((a, b) => a.start.localeCompare(b.start));
+const zones = ["ทั้งหมด", ...new Set(live.map((e) => e.zone))];
+let zone = "ทั้งหมด";
+try { zone = localStorage.getItem("zone") || zone; } catch (_) {}
+if (!zones.includes(zone)) zone = "ทั้งหมด";
+
+function renderBar() {
+  const bar = document.getElementById("bar");
+  bar.innerHTML = "";
+  zones.forEach((z) => {
+    const n = z === "ทั้งหมด" ? live.length : live.filter((e) => e.zone === z).length;
+    const b = document.createElement("button");
+    b.className = "chip"; b.type = "button";
+    b.setAttribute("aria-pressed", String(z === zone));
+    b.innerHTML = esc(z) + '<span class="n">' + n + "</span>";
+    b.onclick = () => { zone = z; try { localStorage.setItem("zone", z); } catch (_) {} render(); };
+    bar.appendChild(b);
+  });
+}
+
+function card(e) {
+  const sd = dayDiff(parse(e.start)), ed = dayDiff(parse(e.end));
+  const running = sd <= 0 && ed >= 0;
+  const hot = sd > 0 && sd <= REMIND;
+  const clash = AVOID.some((a) => a >= e.start && a <= e.end);
+  const tags = ['<span class="tag t-zone">' + esc(e.zone) + "</span>"];
+  if (hot) tags.push('<span class="tag t-hot">ช่วงหาสตาฟ</span>');
+  if (e.isNew) tags.push('<span class="tag t-new">ใหม่</span>');
+  if (clash) tags.push('<span class="tag t-warn">ชนวันที่ไม่ว่าง</span>');
+  const badge = running ? "<b>●</b><span>กำลังจัด</span>" : "<b>" + sd + "</b><span>วัน</span>";
+  return '<article class="card' + (hot ? " hot" : "") + '">' +
+    '<div class="top"><div class="title">' + esc(e.title) + '</div><div class="days">' + badge + "</div></div>" +
+    '<div class="meta">📅 ' + range(e.start, e.end) + (e.place ? " · " + esc(e.place) : "") + "</div>" +
+    '<div class="tags">' + tags.join("") + "</div>" +
+    '<div class="acts"><a class="btn primary" href="' + esc(e.fb) + '" target="_blank" rel="noopener">หาสตาฟใน FB</a>' +
+    '<a class="btn" href="' + esc(e.url) + '" target="_blank" rel="noopener">รายละเอียดงาน</a></div></article>';
+}
+
+function render() {
+  renderBar();
+  const items = live.filter((e) => zone === "ทั้งหมด" || e.zone === zone);
+  const hot = items.filter((e) => { const d = dayDiff(parse(e.start)); return d > 0 && d <= REMIND; }).length;
+  const fresh = items.filter((e) => e.isNew).length;
+  document.getElementById("summary").innerHTML =
+    "<span><b>" + items.length + "</b> งาน</span><span>· <b>" + hot + "</b> อยู่ในช่วงหาสตาฟ</span>" +
+    (fresh ? "<span>· <b>" + fresh + "</b> งานใหม่</span>" : "");
+  const list = document.getElementById("list");
+  if (!items.length) { list.innerHTML = '<p class="empty">ยังไม่มีงานในโซนนี้ช่วง 60 วันข้างหน้า</p>'; return; }
+  const groups = [
+    ["กำลังจัดอยู่ตอนนี้", (e) => dayDiff(parse(e.start)) <= 0],
+    ["ภายใน " + REMIND + " วัน · ช่วงหาสตาฟ", (e) => { const d = dayDiff(parse(e.start)); return d > 0 && d <= REMIND; }],
+    ["ถัดไป", (e) => dayDiff(parse(e.start)) > REMIND],
+  ];
+  list.innerHTML = groups.map(([label, fn]) => {
+    const g = items.filter(fn);
+    return g.length ? '<h2 class="group">' + label + '</h2><div class="list">' + g.map(card).join("") + "</div>" : "";
+  }).join("");
+}
+render();
+</script>
+</body>
+</html>

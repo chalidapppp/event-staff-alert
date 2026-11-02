@@ -1,0 +1,36 @@
+{
+  "zones": [
+    {
+      "name": "ไบเทค บางนา",
+      "lat": 13.6697,
+      "lon": 100.6106,
+      "radius_km": 2.5,
+      "keywords": ["bitec", "ไบเทค", "bangna", "บางนา"]
+    },
+    {
+      "name": "ศูนย์ประชุมฯ สิริกิติ์",
+      "lat": 13.7236,
+      "lon": 100.5600,
+      "radius_km": 1.5,
+      "keywords": ["qsncc", "sirikit", "สิริกิติ์"]
+    },
+    {
+      "name": "ราชมังคลา / หัวหมาก",
+      "lat": 13.7555,
+      "lon": 100.6225,
+      "radius_km": 2.0,
+      "keywords": ["rajamangala", "ราชมังคลา", "huamark", "hua mak", "หัวหมาก"]
+    },
+    {
+      "name": "บางกะปิ / รามคำแหง",
+      "lat": 13.7660,
+      "lon": 100.6430,
+      "radius_km": 2.5,
+      "keywords": ["bangkapi", "บางกะปิ", "ramkhamhaeng", "รามคำแหง"]
+    }
+  ],
+  "avoid_dates": ["2026-11-21", "2026-11-22"],
+  "look_ahead_days": 60,
+  "remind_days_before": 10,
+  "max_items_per_message": 15
+}
