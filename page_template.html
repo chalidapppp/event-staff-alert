@@ -3,178 +3,298 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#14213d">
+<meta name="theme-color" content="#101a3a">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="งานสตาฟ">
-<meta name="robots" content="noindex">
+<meta name="description" content="รวมงานอีเวนต์ที่จะจัดแถวไบเทค ศูนย์ประชุมฯ ราชมังคลา บางกะปิ ไว้หางานสตาฟ / usher">
+<meta property="og:title" content="งานอีเวนต์ใกล้ฉัน · หางานสตาฟ">
+<meta property="og:description" content="รู้ก่อนว่างานไหนกำลังจะมา เอเจนซี่จะรับสตาฟช่วงไหน">
 <title>งานอีเวนต์ใกล้ฉัน</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23101a3a'/%3E%3Cpath d='M14 22h36v6a5 5 0 0 0 0 10v6H14v-6a5 5 0 0 0 0-10z' fill='%23ffb547'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap">
 <style>
-/* One column of event cards, newest-relevant first; filter chips stick to the top while scrolling. */
+/* Layout: navy header with the three numbers that matter, sticky filters, then events as ticket stubs
+   (date on the tear-off side, details on the body). One column, thumb-reachable buttons. */
 :root {
-  --bg: #f2f4f8; --card: #ffffff; --ink: #14213d; --muted: #5e6a80; --line: #dfe4ec;
-  --accent: #2346c8; --accent-bg: #e4eafc;
-  --hot: #b4540a; --hot-bg: #fdeedd;
-  --new: #13795b; --new-bg: #dcf3ea;
-  --warn: #c0283a; --warn-bg: #fbe3e6;
+  --bg: #eef1f7;
+  --card: #ffffff;
+  --ink: #101a3a;
+  --muted: #5f6b85;
+  --line: #dde2ec;
+  --head: #101a3a;
+  --head-ink: #f4f6fb;
+  --head-muted: #a9b4d0;
+  --amber: #ffb547;          /* "hiring window" — the thing to act on */
+  --amber-ink: #8a4b00;
+  --amber-bg: #fff1d9;
+  --new: #0f7a58;
+  --new-bg: #daf3e9;
+  --live: #d6324a;
+  --btn: #2448d8;
+  --btn-ink: #ffffff;
   --display: "Chakra Petch", "IBM Plex Sans Thai", system-ui, sans-serif;
   --body: "IBM Plex Sans Thai", "Noto Sans Thai", system-ui, sans-serif;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0f141d; --card: #18202c; --ink: #e8ecf3; --muted: #9aa6ba; --line: #2a3443;
-    --accent: #8aa4ff; --accent-bg: #1f2b4f; --hot: #f3a25a; --hot-bg: #3b2714;
-    --new: #5fd0a8; --new-bg: #153328; --warn: #f37b8a; --warn-bg: #3f1c22;
+    --bg: #0b1020; --card: #151c31; --ink: #e9edf7; --muted: #9aa5c0; --line: #263052;
+    --head: #070b18; --head-ink: #f4f6fb; --head-muted: #8f9bbb;
+    --amber-ink: #ffcb7d; --amber-bg: #3a2810; --new: #5fd3a9; --new-bg: #123326;
+    --live: #ff6b7f; --btn: #6f8cff; --btn-ink: #0b1020;
     color-scheme: dark;
   }
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
-body {
-  margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.55 var(--body);
-  padding: env(safe-area-inset-top, 0) max(16px, env(safe-area-inset-right, 0px)) 40px max(16px, env(safe-area-inset-left, 0px));
-}
-.wrap { max-width: 640px; margin: 0 auto; }
-header { padding: 22px 0 10px; }
-h1 { font-family: var(--display); font-size: 26px; line-height: 1.15; margin: 0; }
-.sub { color: var(--muted); font-size: 13px; margin: 4px 0 0; }
-.bar {
-  position: sticky; top: 0; z-index: 5; background: var(--bg);
-  padding: 10px 0; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;
-}
-.bar::-webkit-scrollbar { display: none; }
-.chip {
-  flex: none; border: 1px solid var(--line); background: var(--card); color: var(--ink);
-  border-radius: 999px; padding: 7px 14px; font: inherit; font-size: 14px; cursor: pointer;
-}
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.55 var(--body); }
+.gutter { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 620px; margin: 0 auto; }
+button, input { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+
+/* Header */
+.hero { background: var(--head); color: var(--head-ink); padding-top: calc(env(safe-area-inset-top, 0px) + 20px); padding-bottom: 22px; }
+.brand { display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: var(--head-muted); letter-spacing: .04em; }
+.brand svg { flex: none; }
+h1 { font-family: var(--display); font-weight: 700; font-size: 30px; line-height: 1.1; margin: 10px 0 4px; text-wrap: balance; }
+.hero p { margin: 0; color: var(--head-muted); font-size: 14px; }
+.kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 18px; }
+.kpi { border: 1px solid rgba(255,255,255,.12); border-radius: 14px; padding: 10px 12px; text-align: left; background: rgba(255,255,255,.04); cursor: pointer; color: inherit; }
+.kpi b { display: block; font-family: var(--display); font-size: 28px; line-height: 1.05; }
+.kpi span { font-size: 12px; color: var(--head-muted); }
+.kpi.amber b { color: var(--amber); }
+.kpi[aria-pressed="true"] { border-color: var(--amber); background: rgba(255,181,71,.12); }
+
+/* Filters */
+.filters { position: sticky; top: 0; z-index: 5; background: var(--bg); padding-top: calc(env(safe-area-inset-top, 0px) + 10px); padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+.search { display: flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 0 12px; }
+.search input { flex: 1; min-width: 0; border: 0; background: transparent; padding: 10px 0; outline: none; }
+.search svg { flex: none; color: var(--muted); }
+.chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; margin-top: 8px; padding-bottom: 2px; }
+.chips::-webkit-scrollbar { display: none; }
+.chip { flex: none; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 6px 12px; font-size: 13.5px; cursor: pointer; }
+.chip i { width: 8px; height: 8px; border-radius: 50%; background: var(--z, var(--muted)); }
+.chip .n { color: var(--muted); font-size: 12px; }
 .chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-.chip .n { opacity: .65; margin-left: 4px; font-size: 12px; }
-.summary { display: flex; gap: 8px; flex-wrap: wrap; margin: 4px 0 14px; font-size: 13px; color: var(--muted); }
-.summary b { color: var(--ink); }
-.group { font-family: var(--display); font-size: 15px; color: var(--muted); margin: 20px 0 8px; letter-spacing: .02em; }
-.list { display: flex; flex-direction: column; gap: 10px; }
-.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
-.card.hot { border-color: var(--hot); }
-.top { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
-.title { font-weight: 600; font-size: 16px; line-height: 1.4; overflow-wrap: anywhere; min-width: 0; }
-.days { flex: none; text-align: center; min-width: 52px; }
-.days b { display: block; font-family: var(--display); font-size: 22px; line-height: 1; }
-.days span { font-size: 11px; color: var(--muted); }
-.meta { color: var(--muted); font-size: 13.5px; margin-top: 4px; }
-.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-.tag { font-size: 12px; font-weight: 600; border-radius: 6px; padding: 1px 8px; }
-.t-zone { background: var(--accent-bg); color: var(--accent); }
-.t-hot { background: var(--hot-bg); color: var(--hot); }
-.t-new { background: var(--new-bg); color: var(--new); }
-.t-warn { background: var(--warn-bg); color: var(--warn); }
-.acts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
-.btn {
-  display: block; text-align: center; text-decoration: none; border-radius: 10px; padding: 10px 8px;
-  font-weight: 600; font-size: 14px; border: 1px solid var(--line); color: var(--ink); background: var(--bg);
+.chip[aria-pressed="true"] .n { color: inherit; opacity: .7; }
+
+/* List */
+main { padding-top: 6px; padding-bottom: 28px; }
+.group { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin: 20px 2px 10px; }
+.group h2 { font-family: var(--display); font-size: 17px; margin: 0; }
+.group small { color: var(--muted); font-size: 12.5px; }
+.list { display: flex; flex-direction: column; gap: 12px; }
+
+.ticket { display: grid; grid-template-columns: 74px minmax(0, 1fr); background: var(--card); border-radius: 16px; box-shadow: 0 1px 2px rgba(16,26,58,.06), 0 6px 18px -12px rgba(16,26,58,.25); overflow: hidden; }
+.stub { position: relative; background: var(--z); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px 4px; text-align: center; }
+.stub::after { /* perforation */
+  content: ""; position: absolute; right: -5px; top: 6px; bottom: 6px; width: 10px;
+  background: radial-gradient(circle at 5px 5px, var(--card) 3.2px, transparent 3.6px) 0 0 / 10px 12px repeat-y;
 }
-.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
-@media (prefers-color-scheme: dark) { .btn.primary { color: #0f141d; } }
-.empty { text-align: center; color: var(--muted); padding: 40px 0; }
-.tip { margin-top: 28px; padding: 14px 16px; border-radius: 12px; background: var(--card); border: 1px dashed var(--line); font-size: 13.5px; color: var(--muted); }
-.tip b { color: var(--ink); }
-footer { margin-top: 18px; font-size: 12px; color: var(--muted); text-align: center; }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.stub .dow { font-size: 11.5px; opacity: .9; }
+.stub .day { font-family: var(--display); font-weight: 700; font-size: 30px; line-height: 1; margin: 2px 0; }
+.stub .mon { font-size: 12px; font-weight: 600; }
+.stub .to { font-size: 10.5px; opacity: .85; margin-top: 4px; }
+.body { padding: 12px 14px 14px 16px; min-width: 0; }
+.row1 { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; }
+.title { font-weight: 600; font-size: 15.5px; line-height: 1.4; overflow-wrap: anywhere; min-width: 0; }
+.when { flex: none; font-size: 12px; font-weight: 600; border-radius: 999px; padding: 2px 9px; background: var(--bg); color: var(--muted); white-space: nowrap; }
+.when.hot { background: var(--amber-bg); color: var(--amber-ink); }
+.when.live { color: var(--live); background: transparent; padding-right: 0; }
+.when.live::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--live); margin-right: 5px; vertical-align: 1px; animation: pulse 1.6s infinite; }
+@keyframes pulse { 50% { opacity: .3; } }
+.place { color: var(--muted); font-size: 13px; margin-top: 3px; display: flex; gap: 6px; align-items: baseline; }
+.place b { font-weight: 600; color: var(--z); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.tag { font-size: 11.5px; font-weight: 600; border-radius: 6px; padding: 1px 7px; }
+.t-new { background: var(--new-bg); color: var(--new); }
+.t-warn { background: var(--amber-bg); color: var(--amber-ink); }
+.acts { display: flex; gap: 8px; margin-top: 12px; }
+.btn { flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 40px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 13.5px; border: 1px solid var(--line); color: var(--ink); background: transparent; }
+.btn.primary { background: var(--btn); border-color: var(--btn); color: var(--btn-ink); }
+.btn:active { transform: scale(.98); }
+
+.empty { text-align: center; color: var(--muted); padding: 48px 12px; }
+.empty b { display: block; color: var(--ink); font-family: var(--display); font-size: 18px; margin-bottom: 4px; }
+
+/* Footer */
+.howto { background: var(--card); border-radius: 16px; padding: 4px 16px; margin-top: 26px; border: 1px solid var(--line); }
+.howto summary { cursor: pointer; font-weight: 600; padding: 12px 0; list-style: none; display: flex; justify-content: space-between; }
+.howto summary::-webkit-details-marker { display: none; }
+.howto summary::after { content: "+"; color: var(--muted); font-size: 18px; line-height: 1; }
+.howto[open] summary::after { content: "–"; }
+.howto ol { margin: 0 0 14px; padding-left: 20px; color: var(--muted); font-size: 14px; display: grid; gap: 6px; }
+.howto ol b { color: var(--ink); }
+.share { display: flex; gap: 8px; margin-top: 12px; }
+.share .btn { min-height: 44px; }
+footer { color: var(--muted); font-size: 12px; text-align: center; margin-top: 18px; line-height: 1.7; }
+.toast { position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 20px); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 8px 16px; border-radius: 999px; font-size: 14px; opacity: 0; transition: opacity .2s; pointer-events: none; }
+.toast.on { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .when.live::before { animation: none; } .toast { transition: none; } }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
+<header class="hero gutter">
+  <div class="wrap">
+    <div class="brand">
+      <svg width="22" height="22" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 18h48v8a6 6 0 0 0 0 12v8H8v-8a6 6 0 0 0 0-12z" fill="#ffb547"/></svg>
+      STAFF RADAR · ไบเทค · ศูนย์ประชุมฯ · ราชมังคลา · บางกะปิ
+    </div>
     <h1>งานอีเวนต์ใกล้ฉัน</h1>
-    <p class="sub">ไบเทค · ศูนย์ประชุมฯ · ราชมังคลา/หัวหมาก · บางกะปิ — ใช้หาว่าช่วงไหนเอเจนซี่จะรับสตาฟ</p>
-  </header>
-  <nav class="bar" id="bar" aria-label="กรองตามโซน"></nav>
-  <div class="summary" id="summary"></div>
-  <main id="list"></main>
-  <div class="tip">
-    <b>ใช้ยังไง:</b> งานที่ขึ้นป้าย <b>ช่วงหาสตาฟ</b> คืองานที่เหลือไม่เกิน __REMIND__ วัน เอเจนซี่มักประกาศรับคนช่วงนี้
-    กด <b>หาสตาฟใน FB</b> เพื่อค้นโพสต์รับสมัครของงานนั้น<br><br>
-    <b>เพิ่มไว้หน้าจอหลัก:</b> iPhone กดปุ่มแชร์ → "เพิ่มไปยังหน้าจอโฮม" · Android กด ⋮ → "เพิ่มลงในหน้าจอหลัก"
+    <p>รู้ก่อนว่างานไหนกำลังมา จะได้ทักเอเจนซี่ขอเป็นสตาฟ / usher ก่อนคนอื่น</p>
+    <div class="kpis">
+      <button class="kpi amber" type="button" id="kHot" aria-pressed="false"><b id="nHot">0</b><span>ช่วงหาสตาฟ</span></button>
+      <button class="kpi" type="button" id="kNew" aria-pressed="false"><b id="nNew">0</b><span>งานใหม่</span></button>
+      <button class="kpi" type="button" id="kAll" aria-pressed="false"><b id="nAll">0</b><span>งานทั้งหมด</span></button>
+    </div>
   </div>
-  <footer>อัปเดตล่าสุด __UPDATED__ · แหล่งข้อมูล: __SOURCES__</footer>
+</header>
+
+<div class="filters gutter">
+  <div class="wrap">
+    <label class="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="ค้นหาชื่องาน เช่น expo, concert" autocomplete="off" aria-label="ค้นหาชื่องาน">
+    </label>
+    <div class="chips" id="chips" role="group" aria-label="กรองตามสถานที่"></div>
+  </div>
 </div>
+
+<main class="gutter">
+  <div class="wrap">
+    <div id="list"></div>
+
+    <details class="howto">
+      <summary>ใช้หน้านี้หางานยังไง</summary>
+      <ol>
+        <li>ดูกลุ่ม <b>ช่วงหาสตาฟ</b> ก่อน คืองานที่อีกไม่เกิน __REMIND__ วันจะจัด เอเจนซี่มักประกาศรับคนช่วงนี้</li>
+        <li>กด <b>หาสตาฟใน FB</b> เพื่อค้นโพสต์รับสมัครของงานนั้น แล้วเรียงผลเป็น "ล่าสุด"</li>
+        <li>เตรียมข้อความแนะนำตัวไว้ก๊อปส่ง ใครทักไวได้งาน</li>
+        <li>เพิ่มหน้านี้ไว้หน้าจอหลัก: iPhone กดแชร์ → <b>เพิ่มไปยังหน้าจอโฮม</b> · Android กด ⋮ → <b>เพิ่มลงในหน้าจอหลัก</b></li>
+      </ol>
+    </details>
+
+    <div class="share">
+      <button class="btn primary" type="button" id="shareBtn">แชร์ให้เพื่อน</button>
+      <button class="btn" type="button" id="copyBtn">คัดลอกลิงก์</button>
+    </div>
+
+    <footer>อัปเดตล่าสุด __UPDATED__ · อัปเดตเองวันละ 3 รอบ<br>แหล่งข้อมูล: __SOURCES__</footer>
+  </div>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
 <script>
 const EVENTS = __DATA__;
 const AVOID = __AVOID__;
 const REMIND = __REMIND__;
 const TH_M = ["","ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
-const TH_D = ["อา.","จ.","อ.","พ.","พฤ.","ศ.","ส."];
+const TH_D = ["อาทิตย์","จันทร์","อังคาร","พุธ","พฤหัส","ศุกร์","เสาร์"];
+const ZONE_COLORS = ["#2a6fdb", "#7a4cd9", "#e0532f", "#139a74", "#c2378b", "#5f6b85"];
 
-function parse(s) { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); }
+const parse = (s) => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
 const today = new Date(); today.setHours(0, 0, 0, 0);
-const dayDiff = (d) => Math.round((d - today) / 86400000);
-function range(s, e) {
-  const a = parse(s), b = parse(e);
-  if (s === e) return TH_D[a.getDay()] + " " + a.getDate() + " " + TH_M[a.getMonth() + 1];
-  if (a.getMonth() === b.getMonth()) return a.getDate() + "–" + b.getDate() + " " + TH_M[a.getMonth() + 1];
-  return a.getDate() + " " + TH_M[a.getMonth() + 1] + " – " + b.getDate() + " " + TH_M[b.getMonth() + 1];
-}
-function esc(s) { const d = document.createElement("div"); d.textContent = s == null ? "" : s; return d.innerHTML; }
+const diff = (s) => Math.round((parse(s) - today) / 86400000);
+const esc = (s) => { const d = document.createElement("div"); d.textContent = s == null ? "" : s; return d.innerHTML; };
 
-const live = EVENTS.filter((e) => dayDiff(parse(e.end)) >= 0).sort((a, b) => a.start.localeCompare(b.start));
-const zones = ["ทั้งหมด", ...new Set(live.map((e) => e.zone))];
-let zone = "ทั้งหมด";
-try { zone = localStorage.getItem("zone") || zone; } catch (_) {}
-if (!zones.includes(zone)) zone = "ทั้งหมด";
+const live = EVENTS.filter((e) => diff(e.end) >= 0).sort((a, b) => a.start.localeCompare(b.start) || a.title.localeCompare(b.title));
+const zones = [...new Set(live.map((e) => e.zone))];
+const color = (z) => ZONE_COLORS[zones.indexOf(z) % ZONE_COLORS.length] || ZONE_COLORS[5];
+const isHot = (e) => { const d = diff(e.start); return d > 0 && d <= REMIND; };
 
-function renderBar() {
-  const bar = document.getElementById("bar");
-  bar.innerHTML = "";
-  zones.forEach((z) => {
-    const n = z === "ทั้งหมด" ? live.length : live.filter((e) => e.zone === z).length;
-    const b = document.createElement("button");
-    b.className = "chip"; b.type = "button";
-    b.setAttribute("aria-pressed", String(z === zone));
-    b.innerHTML = esc(z) + '<span class="n">' + n + "</span>";
-    b.onclick = () => { zone = z; try { localStorage.setItem("zone", z); } catch (_) {} render(); };
-    bar.appendChild(b);
+const state = { zone: "", q: "", only: "" };
+try { state.zone = localStorage.getItem("zone") || ""; } catch (_) {}
+if (state.zone && !zones.includes(state.zone)) state.zone = "";
+
+function chips() {
+  const el = document.getElementById("chips");
+  const all = [["", "ทุกที่", live.length]].concat(zones.map((z) => [z, z, live.filter((e) => e.zone === z).length]));
+  el.innerHTML = all.map(([v, label, n]) =>
+    '<button class="chip" type="button" data-z="' + esc(v) + '" aria-pressed="' + (state.zone === v) + '"' +
+    (v ? ' style="--z:' + color(v) + '"' : "") + ">" + (v ? "<i></i>" : "") + esc(label) + ' <span class="n">' + n + "</span></button>").join("");
+  el.querySelectorAll(".chip").forEach((b) => b.onclick = () => {
+    state.zone = b.dataset.z;
+    try { localStorage.setItem("zone", state.zone); } catch (_) {}
+    render();
   });
 }
 
-function card(e) {
-  const sd = dayDiff(parse(e.start)), ed = dayDiff(parse(e.end));
-  const running = sd <= 0 && ed >= 0;
-  const hot = sd > 0 && sd <= REMIND;
-  const clash = AVOID.some((a) => a >= e.start && a <= e.end);
-  const tags = ['<span class="tag t-zone">' + esc(e.zone) + "</span>"];
-  if (hot) tags.push('<span class="tag t-hot">ช่วงหาสตาฟ</span>');
+function whenLabel(e) {
+  const s = diff(e.start);
+  if (s <= 0) return '<span class="when live">กำลังจัด</span>';
+  if (s === 1) return '<span class="when hot">พรุ่งนี้</span>';
+  return '<span class="when' + (isHot(e) ? " hot" : "") + '">อีก ' + s + " วัน</span>";
+}
+
+function ticket(e) {
+  const a = parse(e.start), b = parse(e.end);
+  const multi = e.start !== e.end;
+  const to = multi ? "ถึง " + b.getDate() + " " + TH_M[b.getMonth() + 1] : "";
+  const tags = [];
   if (e.isNew) tags.push('<span class="tag t-new">ใหม่</span>');
-  if (clash) tags.push('<span class="tag t-warn">ชนวันที่ไม่ว่าง</span>');
-  const badge = running ? "<b>●</b><span>กำลังจัด</span>" : "<b>" + sd + "</b><span>วัน</span>";
-  return '<article class="card' + (hot ? " hot" : "") + '">' +
-    '<div class="top"><div class="title">' + esc(e.title) + '</div><div class="days">' + badge + "</div></div>" +
-    '<div class="meta">📅 ' + range(e.start, e.end) + (e.place ? " · " + esc(e.place) : "") + "</div>" +
-    '<div class="tags">' + tags.join("") + "</div>" +
+  if (AVOID.some((d) => d >= e.start && d <= e.end)) tags.push('<span class="tag t-warn">ชนวันที่ไม่ว่าง</span>');
+  return '<article class="ticket" style="--z:' + color(e.zone) + '">' +
+    '<div class="stub"><span class="dow">' + TH_D[a.getDay()] + '</span><span class="day">' + a.getDate() +
+    '</span><span class="mon">' + TH_M[a.getMonth() + 1] + "</span>" + (to ? '<span class="to">' + to + "</span>" : "") + "</div>" +
+    '<div class="body"><div class="row1"><div class="title">' + esc(e.title) + "</div>" + whenLabel(e) + "</div>" +
+    '<div class="place"><b>' + esc(e.zone) + "</b>" + (e.place ? "<span>· " + esc(e.place) + "</span>" : "") + "</div>" +
+    (tags.length ? '<div class="tags">' + tags.join("") + "</div>" : "") +
     '<div class="acts"><a class="btn primary" href="' + esc(e.fb) + '" target="_blank" rel="noopener">หาสตาฟใน FB</a>' +
-    '<a class="btn" href="' + esc(e.url) + '" target="_blank" rel="noopener">รายละเอียดงาน</a></div></article>';
+    '<a class="btn" href="' + esc(e.url) + '" target="_blank" rel="noopener">รายละเอียด</a></div></div></article>';
 }
 
 function render() {
-  renderBar();
-  const items = live.filter((e) => zone === "ทั้งหมด" || e.zone === zone);
-  const hot = items.filter((e) => { const d = dayDiff(parse(e.start)); return d > 0 && d <= REMIND; }).length;
-  const fresh = items.filter((e) => e.isNew).length;
-  document.getElementById("summary").innerHTML =
-    "<span><b>" + items.length + "</b> งาน</span><span>· <b>" + hot + "</b> อยู่ในช่วงหาสตาฟ</span>" +
-    (fresh ? "<span>· <b>" + fresh + "</b> งานใหม่</span>" : "");
+  chips();
+  const q = state.q.trim().toLowerCase();
+  let items = live.filter((e) => (!state.zone || e.zone === state.zone) && (!q || (e.title + " " + e.place).toLowerCase().includes(q)));
+  document.getElementById("nHot").textContent = items.filter(isHot).length;
+  document.getElementById("nNew").textContent = items.filter((e) => e.isNew).length;
+  document.getElementById("nAll").textContent = items.length;
+  ["kHot", "kNew", "kAll"].forEach((id) => document.getElementById(id).setAttribute("aria-pressed", String(state.only === id)));
+  if (state.only === "kHot") items = items.filter(isHot);
+  if (state.only === "kNew") items = items.filter((e) => e.isNew);
+
   const list = document.getElementById("list");
-  if (!items.length) { list.innerHTML = '<p class="empty">ยังไม่มีงานในโซนนี้ช่วง 60 วันข้างหน้า</p>'; return; }
+  if (!items.length) {
+    list.innerHTML = '<div class="empty"><b>ไม่เจองานที่ตรงกับที่เลือก</b>ลองเลือก "ทุกที่" หรือล้างคำค้นหา</div>';
+    return;
+  }
   const groups = [
-    ["กำลังจัดอยู่ตอนนี้", (e) => dayDiff(parse(e.start)) <= 0],
-    ["ภายใน " + REMIND + " วัน · ช่วงหาสตาฟ", (e) => { const d = dayDiff(parse(e.start)); return d > 0 && d <= REMIND; }],
-    ["ถัดไป", (e) => dayDiff(parse(e.start)) > REMIND],
+    ["กำลังจัดอยู่ตอนนี้", "ไปดูหน้างานได้", (e) => diff(e.start) <= 0],
+    ["ช่วงหาสตาฟ", "อีกไม่เกิน " + REMIND + " วัน", isHot],
+    ["งานถัดไป", "เตรียมตัวไว้ก่อน", (e) => diff(e.start) > REMIND],
   ];
-  list.innerHTML = groups.map(([label, fn]) => {
+  list.innerHTML = groups.map(([title, note, fn]) => {
     const g = items.filter(fn);
-    return g.length ? '<h2 class="group">' + label + '</h2><div class="list">' + g.map(card).join("") + "</div>" : "";
+    return g.length ? '<section><div class="group"><h2>' + title + "</h2><small>" + note + " · " + g.length + ' งาน</small></div><div class="list">' + g.map(ticket).join("") + "</div></section>" : "";
   }).join("");
 }
+
+document.getElementById("q").addEventListener("input", (e) => { state.q = e.target.value; render(); });
+["kHot", "kNew", "kAll"].forEach((id) => document.getElementById(id).onclick = () => {
+  state.only = state.only === id || id === "kAll" ? "" : id;
+  render();
+  document.getElementById("list").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+function toast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("on");
+  clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("on"), 1800);
+}
+async function copyLink() {
+  try { await navigator.clipboard.writeText(location.href.split("#")[0]); toast("คัดลอกลิงก์แล้ว"); }
+  catch (_) { toast("คัดลอกไม่ได้ กดค้างที่แถบที่อยู่เพื่อคัดลอกแทน"); }
+}
+document.getElementById("copyBtn").onclick = copyLink;
+document.getElementById("shareBtn").onclick = async () => {
+  const data = { title: "งานอีเวนต์ใกล้ฉัน", text: "รวมงานอีเวนต์แถวไบเทค ศูนย์ประชุมฯ ราชมังคลา บางกะปิ ไว้หางานสตาฟ", url: location.href.split("#")[0] };
+  if (navigator.share) { try { await navigator.share(data); } catch (_) {} }
+  else copyLink();
+};
+
 render();
 </script>
 </body>
