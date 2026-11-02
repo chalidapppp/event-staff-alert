@@ -29,7 +29,7 @@
       "keywords": ["bangkapi", "บางกะปิ", "ramkhamhaeng", "รามคำแหง"]
     }
   ],
-  "avoid_dates": ["2026-11-21", "2026-11-22"],
+  "avoid_dates": [],
   "look_ahead_days": 60,
   "remind_days_before": 10,
   "max_items_per_message": 15
